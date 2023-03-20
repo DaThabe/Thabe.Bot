@@ -1,4 +1,6 @@
 # Thabe.Bot preview 0.0.1
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDaThabe%2FThabe.Bot.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FDaThabe%2FThabe.Bot?ref=badge_shield)
+
 
 Thabe.Bot 是基于 [Mirai.Net](https://github.com/SinoAHpx/Mirai.Net) 的QQ机器人
 
@@ -233,3 +235,6 @@ public class ScriptHandel
     public void Unload();
 }
 ```
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDaThabe%2FThabe.Bot.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FDaThabe%2FThabe.Bot?ref=badge_large)
