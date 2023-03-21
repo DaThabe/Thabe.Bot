@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Thabe.Kit.EasyChatGPT" Version="1.0.1" />
+    <PackageReference Include="Thabe.Kit.EasyChatGPT" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>

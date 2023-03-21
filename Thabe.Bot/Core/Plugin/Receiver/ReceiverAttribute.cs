@@ -8,7 +8,7 @@
 public class ReceiverAttribute : Attribute
 {
     /// <summary>
-    /// 执行优先级, 数字越大越高 默认0
+    /// 执行优先级, 数字越大越低 默认都很高
     /// </summary>
     public int Level { get; init; } = 0;
 

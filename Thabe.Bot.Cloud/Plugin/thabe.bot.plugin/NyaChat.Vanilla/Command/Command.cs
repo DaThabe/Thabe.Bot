@@ -1,7 +1,7 @@
 ﻿using PowerArgs;
 using PowerArgs.Samples;
 
-namespace Thabe.Bot.Cloud.Plugin.thabe.bot.plugin.ChatGpt;
+namespace Thabe.Bot.Cloud.Plugin.thabe.bot.plugin.NyaChat.Vanilla.Command;
 
 
 /*
