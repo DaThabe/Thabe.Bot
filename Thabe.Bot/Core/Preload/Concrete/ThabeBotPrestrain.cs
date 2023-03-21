@@ -27,7 +27,7 @@ file class BotCallPlugin : IPreload
         
         //按照接收器预先设置的优先级排序
         var receivers = PluginManager.ReceiverHandels.ToList();
-        receivers.Sort((x, y) => y.MetaInfo.Level.CompareTo(x.MetaInfo.Level));
+        receivers.Sort((x, y) => x.MetaInfo.Level.CompareTo(y.MetaInfo.Level));
 
         //按照先后顺序调用
         receivers.Foreach(x =>

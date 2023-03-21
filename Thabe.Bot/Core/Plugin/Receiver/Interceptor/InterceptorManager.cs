@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using Manganese.Array;
 using Mirai.Net.Data.Messages;
 using Thabe.Bot.Core.Plugin.Receiver.Interceptor.Concrete;
 using Thabe.Bot.Util;
@@ -15,7 +16,7 @@ public static class InterceptorManager
     /// <summary>
     /// 拦截器集合
     /// </summary>
-    private static readonly ConcurrentDictionary<string, IInterceptor> _INTERCEPTORS = new();
+    private static readonly List<(string, IInterceptor)> _INTERCEPTORS = new();
 
 
     /// <summary>
@@ -31,7 +32,7 @@ public static class InterceptorManager
     {
         if(receiver.GetSenderHandel() is { Length : > 0} id)
         {
-            _INTERCEPTORS.AddOrUpdate(id, interceptor, (k, v) => v);
+            _INTERCEPTORS.Add((id, interceptor));
             return true;
         }
         return false;
@@ -45,8 +46,7 @@ public static class InterceptorManager
     {
         if (receiver.GetSenderHandel() is { Length: > 0 } id)
         {
-            _INTERCEPTORS.TryGetValue(id, out IInterceptor? value);
-            return value;
+            return _INTERCEPTORS.FirstOrDefault(x => x.Item1 == id).Item2;
         }
 
         return null;
@@ -58,6 +58,6 @@ public static class InterceptorManager
     /// </summary>
     public static bool Release(this IInterceptor interceptor)
     {
-        return _INTERCEPTORS.Values.Remove(interceptor);
+        return _INTERCEPTORS.RemoveAll(x => x.Item2 == interceptor) != 0;
     }
 }

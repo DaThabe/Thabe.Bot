@@ -165,4 +165,25 @@ public static class CSahrpUtil
     }
 
     #endregion
+
+
+    #region --字符串--
+
+
+    /// <summary>
+    /// 判断输入的字符串是否在前面, 如果在前面就返回移除之后的字符串, 如果不存在或长度大于自己返回原来的
+    /// </summary>
+    /// <param name="removeStr">需要比较和删除的字符串</param>
+    public static string StartWithRemove(this string str, string removeStr)
+    {
+        if (str.StartsWith(removeStr))
+        {
+            return str.Remove(0, removeStr.Length);
+        }
+
+        return str;
+    }
+
+
+    #endregion
 }
