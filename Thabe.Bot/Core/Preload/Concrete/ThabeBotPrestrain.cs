@@ -1,9 +1,7 @@
 ﻿using Mirai.Net.Data.Messages;
 using Thabe.Bot.Core.Logger;
 using Thabe.Bot.Core.Plugin;
-using Thabe.Bot.Core.Plugin.Context;
-using Thabe.Bot.Core.Plugin.Receiver.Interceptor;
-using Thabe.Bot.Util;
+using Thabe.Bot.Core.Plugin.Receiver.Dispatch;
 
 namespace Thabe.Bot.Core.Preload.Concrete;
 
@@ -17,30 +15,7 @@ file class BotCallPlugin : IPreload
         => bot.Core.MessageReceived.Subscribe(CallPlugin);
 
     static void CallPlugin(MessageReceiverBase receiver)
-    {
-        if (receiver.GetContext() is ContextHandel context)
-        {
-            //执行指定的上下
-            context.Continue(receiver);
-            return;
-        }
-        
-        //按照接收器预先设置的优先级排序
-        var receivers = PluginManager.ReceiverHandels.ToList();
-        receivers.Sort((x, y) => x.MetaInfo.Level.CompareTo(y.MetaInfo.Level));
-
-        //按照先后顺序调用
-        receivers.Foreach(x =>
-        {
-            var interceptor = receiver.GetInterceptor();
-
-            //如果有拦截器 就直接退出
-            if (interceptor?.IsContinue() == false) return;
-            interceptor?.Release();
-
-            x.Receive(receiver);
-        });
-    }
+        => receiver.AddToTaskList();
 }
 
 file class PluginReceiverLoad : IPreload
@@ -51,12 +26,12 @@ file class PluginReceiverLoad : IPreload
     {
         PluginManager.ReloadAllReceiver();
 
-        foreach(var i in PluginManager.PluginHandels)
+        foreach(var i in PluginManager.Plugins)
         {
             $"已加载插件: {i.PluginMeta.Name}".LogImportant();
         }
 
-        int count = PluginManager.ReceiverHandels.Count();
+        int count = PluginManager.Receivers.Count();
         logger.Write($"共 {count} 个消息接收器");
     }
 }

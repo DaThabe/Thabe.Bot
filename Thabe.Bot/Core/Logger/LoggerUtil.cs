@@ -105,7 +105,7 @@ public static class LoggerUtil
         {
             StringBuilder sb = new();
 
-            foreach (var i in msg.ToArray()[1..])
+            foreach (var i in msg.ToArray())
             {
                 sb.Append(i switch
                 {

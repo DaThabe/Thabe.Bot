@@ -7,8 +7,19 @@ namespace Thabe.Bot.Core.Plugin.Script;
 /// <summary>
 /// 脚本插件帮助类
 /// </summary>
-public static class ScriptUtil
+public static class ScriptManager
 {
+    /// <summary>
+    /// 脚本句柄集合
+    /// </summary>
+    private static readonly List<ScriptHandel> _scriptHandels = new();
+
+    /// <summary>
+    /// 脚本句柄集合
+    /// </summary>
+    public static IEnumerable<ScriptHandel> ScriptHandels => _scriptHandels;
+
+
     /// <summary>
     /// 加载一个脚本插件
     /// </summary>
@@ -19,6 +30,7 @@ public static class ScriptUtil
         ScriptHandel scriptPlugin = new(name, codeLoader);
 
         scriptPlugin.Reload();
+        _scriptHandels.Add(scriptPlugin);
 
         return scriptPlugin;
     }
@@ -27,19 +39,22 @@ public static class ScriptUtil
     /// 从网络文件加载
     /// </summary>
     /// <param name="url">网址</param>
-    public static ScriptHandel LoadFromWebFile(string url, string? name = null) => Load(new WebFileCodeLoader(url), name);
+    public static ScriptHandel LoadFromWebFile(string url, string? name = null)
+        => Load(new WebFileCodeLoader(url), name);
 
     /// <summary>
     /// 从本地文件加载
     /// </summary>
     /// <param name="filePath">文件路径</param>
     /// <param name="name">脚本名称</param>
-    public static ScriptHandel LoadFromLocalFile(string filePath, string? name = null) => Load(new LocalFileCodeLoader(filePath), name);
+    public static ScriptHandel LoadFromLocalFile(string filePath, string? name = null)
+        => Load(new LocalFileCodeLoader(filePath), name);
     
     /// <summary>
     /// 从源代码加载
     /// </summary>
     /// <param name="code">源码</param>
     /// <param name="name">脚本名称</param>
-    public static ScriptHandel LoadFromSourceCode(string code, string? name = null) => Load(new CustomCodeLoader(() => code), name);
+    public static ScriptHandel LoadFromSourceCode(string code, string? name = null)
+        => Load(new CustomCodeLoader(() => code), name);
 }

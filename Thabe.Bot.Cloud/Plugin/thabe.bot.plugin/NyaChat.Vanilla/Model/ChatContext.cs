@@ -1,6 +1,7 @@
 ﻿using Mirai.Net.Data.Messages;
 using Mirai.Net.Data.Messages.Concretes;
 using Mirai.Net.Data.Messages.Receivers;
+using System.Threading;
 using Thabe.Bot.Core.Database.Config;
 using Thabe.Bot.Core.Database.Config.Concrete;
 using Thabe.Bot.Util;
@@ -60,7 +61,7 @@ public class ChatContext : IDisposable
     /// <summary>
     /// 超时时间
     /// </summary>
-    public TimeSpan Timeout { get; set; }  = TimeSpan.FromMinutes(5);
+    public TimeSpan Timeout { get; set; }  = TimeSpan.FromSeconds(10);
 
     /// <summary>
     /// 是否超时
@@ -73,6 +74,12 @@ public class ChatContext : IDisposable
     public string? SenderHandel => _lastMessageHandel?.GetSenderHandel();
 
     /// <summary>
+    /// 响应超时事件 
+    /// </summary>
+    public event Action<ChatContext>? Timeouted;
+
+
+    /// <summary>
     /// 初始化聊天上下文
     /// </summary>
     /// <param name="client"></param>
@@ -82,11 +89,15 @@ public class ChatContext : IDisposable
         _chatScene = new(client);
         _lastMessageHandel = receiver;
 
-        _timeoutTimer = new Timer(x =>
+        _timeoutTimer = new Timer(async x =>
         {
-            if ((DateTime.Now - _lastChatTime) > Timeout)
+            var time_space = DateTime.Now - _lastChatTime;
+
+            if (!IsTimeout && time_space > Timeout)
             {
                 IsTimeout = true;
+                await _lastMessageHandel.ReplyAsync($"你已经{(int)time_space.TotalSeconds}秒没有搭理香草了, 不和你说话了!", Replys.Quote);
+                Timeouted?.Invoke(this);
             }
         }, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(1));
     }
@@ -97,7 +108,7 @@ public class ChatContext : IDisposable
     /// </summary>
     /// <param name="content"></param>
     /// <returns></returns>
-    public async Task ReplyAsync(MessageReceiverBase receiver)
+    public async void ReplyAsync(MessageReceiverBase receiver)
     {
         //超时
         if (IsTimeout) return;
@@ -123,6 +134,10 @@ public class ChatContext : IDisposable
 
                 await receiver.ReplyAsync(reply_message);
                 _isTipReplying = true;
+            }
+            catch
+            {
+                await receiver.ReplyAsync("QAQ");
             }
             finally
             {

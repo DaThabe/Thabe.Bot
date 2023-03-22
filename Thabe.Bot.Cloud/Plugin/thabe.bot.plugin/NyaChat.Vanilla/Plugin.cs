@@ -14,6 +14,6 @@ public class Plugin
     public static void AIChat(MessageReceiverBase receiver)
     {
         receiver.ChatGPTReply();
-        receiver.SetInterceptor(() => true);
+        receiver.SetInterceptor(() => false);
     }
 }
