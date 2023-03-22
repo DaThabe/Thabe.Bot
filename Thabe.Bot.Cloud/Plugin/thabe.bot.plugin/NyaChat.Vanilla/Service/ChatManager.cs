@@ -77,41 +77,17 @@ public static class Chatmanager
         if (context == null)
         {
             context = new(_CHATGPT_CLIENT, receiver);
+            context.Timeouted += x =>
+            {
+                _CONTEXTS.Remove(x);
+                context.Dispose();
+            };
+            $"用户: {context.SenderHandel} 对话上下文已创建".LogUnimportance();
             _CONTEXTS.Add(context);
         }
 
         //回复内容
-        await context.ReplyAsync(receiver);
-
-        //执行释放上下文任务
-        await Task.Run(ReleaseContenxt);
-    }
-
-    /// <summary>
-    /// 释放已超时的上下文
-    /// </summary>
-    private static void ReleaseContenxt()
-    {
-        if (!Monitor.TryEnter(_releaseLock, TimeSpan.Zero))
-        {
-            return;
-        }
-
-        try
-        {
-            //释放
-            var timeout_context = _CONTEXTS.FindAll(x => x.IsTimeout);
-
-            foreach(var i in timeout_context)
-            {
-                _CONTEXTS.Remove(i);
-                i.Dispose();
-            }
-        }
-        finally
-        {
-            Monitor.Exit(_releaseLock);
-        }
+        await Task.Run(() => context.ReplyAsync(receiver));
     }
 }
 

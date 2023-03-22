@@ -1,11 +1,11 @@
 ﻿using Mirai.Net.Data.Messages;
 using Thabe.Bot.Util;
 
-namespace Thabe.Bot.Core.Plugin.Context;
+namespace Thabe.Bot.Core.Plugin.Receiver.Dispatch.Context;
 
 
 /// <summary>
-/// 插件上下文句柄
+/// 接收器上下文句柄
 /// </summary>
 public class ContextHandel
 {
