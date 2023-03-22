@@ -67,7 +67,7 @@ public static class CSahrpUtil
                          where !string.IsNullOrEmpty(i.Location)
                          select MetadataReference.CreateFromFile(i.Location);
 
-        var mirai_ref = MetadataReference.CreateFromFile(typeof(ScriptUtil).Assembly.Location);
+        var mirai_ref = MetadataReference.CreateFromFile(typeof(ScriptManager).Assembly.Location);
 
         // 指定编译选项。
         var assemblyName = $"{dllName}.g";

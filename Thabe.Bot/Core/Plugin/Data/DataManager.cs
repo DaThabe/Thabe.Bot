@@ -9,7 +9,7 @@ namespace Thabe.Bot.Core.Plugin.Data;
 /// <summary>
 /// 插件数据管理
 /// </summary>
-public static class PluginDataManager
+public static class DataManager
 {
     /// <summary>
     /// 获取数据

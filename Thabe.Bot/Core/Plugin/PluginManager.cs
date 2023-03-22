@@ -7,7 +7,7 @@ namespace Thabe.Bot.Core.Plugin;
 
 
 /// <summary>
-/// 插件管理类
+/// 插件句柄管理类
 /// </summary>
 public static class PluginManager
 {
@@ -20,7 +20,7 @@ public static class PluginManager
     /// 插件接收器集合
     /// </summary>
     private static readonly Dictionary<PluginHandel, List<ReceiverHandel>> _RECEIVER_HANDELS = new();
-    
+
     /// <summary>
     /// 插件句柄
     /// </summary>
@@ -29,13 +29,13 @@ public static class PluginManager
     /// <summary>
     /// 接收器句柄集合
     /// </summary>
-    public static IEnumerable<ReceiverHandel> ReceiverHandels
+    public static IEnumerable<ReceiverHandel> Receivers
         => from i in _RECEIVER_HANDELS from receiver in i.Value select receiver;
 
     /// <summary>
     /// 插件句柄集合
     /// </summary>
-    public static IEnumerable<PluginHandel> PluginHandels
+    public static IEnumerable<PluginHandel> Plugins
         => from i in _RECEIVER_HANDELS select i.Key;
 
 
@@ -73,7 +73,7 @@ public static class PluginManager
     /// <param name="type">插件类型</param>
     public static PluginHandel? RegisterPluginHandel(Type type)
     {
-        if(_PLUGIN_HANDELS.TryGetValue(type, out PluginHandel? value)) return value;
+        if (_PLUGIN_HANDELS.TryGetValue(type, out PluginHandel? value)) return value;
 
         var plugin_att = type.GetCustomAttribute<PluginAttribute>();
         if (plugin_att == null) return null;
@@ -98,7 +98,7 @@ public static class PluginManager
 
 
         //接收器关联插件句柄
-        if(!_RECEIVER_HANDELS.TryGetValue(handel, out List<ReceiverHandel>? plugin))
+        if (!_RECEIVER_HANDELS.TryGetValue(handel, out List<ReceiverHandel>? plugin))
         {
             _RECEIVER_HANDELS[handel] = new();
         }
@@ -125,14 +125,14 @@ public static class PluginManager
         _PLUGIN_HANDELS.TryGetValue(type, out PluginHandel? value);
         return value;
     }
-    
+
 
     /// <summary>
     /// 获取指定插件中所有接收器
     /// </summary>
     public static IEnumerable<ReceiverHandel> GetReceiverHandels(this PluginHandel pluginHandel)
     {
-        if(!_RECEIVER_HANDELS.TryGetValue(pluginHandel, out List<ReceiverHandel>? receivers))
+        if (!_RECEIVER_HANDELS.TryGetValue(pluginHandel, out List<ReceiverHandel>? receivers))
         {
             return Array.Empty<ReceiverHandel>();
         }

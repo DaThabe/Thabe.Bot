@@ -1,7 +1,4 @@
-﻿using System.Collections.Concurrent;
-using Manganese.Array;
-using Mirai.Net.Data.Messages;
-using Thabe.Bot.Core.Plugin.Receiver.Interceptor.Concrete;
+﻿using Mirai.Net.Data.Messages;
 using Thabe.Bot.Util;
 
 namespace Thabe.Bot.Core.Plugin.Receiver.Interceptor;
@@ -16,48 +13,46 @@ public static class InterceptorManager
     /// <summary>
     /// 拦截器集合
     /// </summary>
-    private static readonly List<(string, IInterceptor)> _INTERCEPTORS = new();
+    private static readonly List<InterceptorHandel> _INTERCEPTORS = new();
+
+    /// <summary>
+    /// 拦截器集合
+    /// </summary>
+    public static IEnumerable<InterceptorHandel> Interceptors => _INTERCEPTORS;
 
 
     /// <summary>
     /// 设置拦截器 拦截成功接下来的Reciver将不再执行
     /// </summary>
-    public static void SetInterceptor(this MessageReceiverBase receiver, Func<bool> func)
-        => receiver.SetInterceptor(new FuncInterceptor(func));
-
-    /// <summary>
-    /// 设置拦截器 拦截成功接下来的Reciver将不再执行
-    /// </summary>
-    public static bool SetInterceptor(this MessageReceiverBase receiver, IInterceptor interceptor)
+    public static bool SetInterceptor(this MessageReceiverBase receiver, Func<bool> isContinue)
     {
-        if(receiver.GetSenderHandel() is { Length : > 0} id)
-        {
-            _INTERCEPTORS.Add((id, interceptor));
-            return true;
-        }
-        return false;
-    }
+        var handel = receiver.GetSenderHandel();
+        if (handel is not { Length: > 0 } id) return false;
 
+        if (_INTERCEPTORS.FindAll(x => x.CreatorHandel == handel).Count != 0) return false;
+
+        _INTERCEPTORS.Add(new() { CreatorHandel = handel, IsContinue = isContinue });
+        return true;
+    }
 
     /// <summary>
     /// 获取拦截器
     /// </summary>
-    public static IInterceptor? GetInterceptor(this MessageReceiverBase receiver)
+    public static InterceptorHandel? GetInterceptor(this MessageReceiverBase receiver)
     {
         if (receiver.GetSenderHandel() is { Length: > 0 } id)
         {
-            return _INTERCEPTORS.FirstOrDefault(x => x.Item1 == id).Item2;
+            return _INTERCEPTORS.FirstOrDefault(x => x.CreatorHandel == id);
         }
 
         return null;
     }
 
-
     /// <summary>
     /// 释放拦截器
     /// </summary>
-    public static bool Release(this IInterceptor interceptor)
+    public static bool Release(this InterceptorHandel interceptor)
     {
-        return _INTERCEPTORS.RemoveAll(x => x.Item2 == interceptor) != 0;
+        return _INTERCEPTORS.Remove(interceptor);
     }
 }

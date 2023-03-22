@@ -1,6 +1,6 @@
 ﻿using Mirai.Net.Data.Messages;
 
-namespace Thabe.Bot.Core.Plugin.Context;
+namespace Thabe.Bot.Core.Plugin.Receiver.Dispatch.Context;
 
 
 /// <summary>

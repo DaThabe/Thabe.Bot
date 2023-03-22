@@ -7,6 +7,7 @@ PreloadManager.AddPreloadContent("测试", (bot, logger) =>
 {
     PluginManager.RegisterPluginHandel<Thabe.Bot.Cloud.Plugin.thabe.bot.plugin.SayPlugin.Plugin>();
     PluginManager.RegisterPluginHandel<Thabe.Bot.Cloud.Plugin.thabe.bot.plugin.ChatGpt.Plugin>();
+    PluginManager.RegisterPluginHandel<Thabe.Bot.Cloud.Plugin.thabe.bot.plugin.Terminal.Plugin>();
 
     Chatmanager.SendMasterMessage();
 
