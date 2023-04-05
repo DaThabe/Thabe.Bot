@@ -39,9 +39,21 @@ public partial class ThabeBot
         public const string LOCAL_DATABASE_FOLDER_NAME = "data";
 
         /// <summary>
+        /// 本地缓存文件夹名称
+        /// </summary>
+        public const string LOCAL_CACHE_FOLDER_NAME = "cache";
+
+        
+
+        /// <summary>
         /// 获取本地数据文件夹
         /// </summary>
         public static string LOCAL_DATABASE_PATH => Path.Combine(APP_FOLDER, LOCAL_DATABASE_FOLDER_NAME);
+
+        /// <summary>
+        /// 获取本地缓存路径
+        /// </summary>
+        public static string LOCAL_CACHE_PATH => Path.Combine(APP_FOLDER, LOCAL_CACHE_FOLDER_NAME);
 
         #endregion
 

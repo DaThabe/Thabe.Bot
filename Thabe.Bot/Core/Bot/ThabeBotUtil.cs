@@ -1,4 +1,5 @@
-﻿using Mirai.Net.Sessions.Http.Managers;
+﻿using Mirai.Net.Data.Messages;
+using Mirai.Net.Sessions.Http.Managers;
 using Thabe.Bot.Core.Logger;
 
 namespace Thabe.Bot.Core.Bot;
@@ -11,12 +12,32 @@ namespace Thabe.Bot.Core.Bot;
 public static class ThabeBotUtil
 {
     /// <summary>
-    /// 发送消息给主人
+    /// 发送消息给主人QQ
     /// </summary>
-    /// <param name="message"></param>
+    /// <returns></returns>
     public static async Task<string> SendMasterMessageAsync(string message)
     {
         return await MessageManager.SendFriendMessageAsync(ThabeBot.Config.BOT_MASTER, message);
+    }
+
+    /// <summary>
+    /// 发送消息给主人QQ
+    /// </summary>
+    /// <param name="chain"></param>
+    /// <returns></returns>
+    public static async Task<string> SendMasterMessageAsync(this MessageBase messages)
+    {
+        return await MessageManager.SendFriendMessageAsync(ThabeBot.Config.BOT_MASTER, messages);
+    }
+
+    /// <summary>
+    /// 发送消息给主人QQ
+    /// </summary>
+    /// <param name="chain"></param>
+    /// <returns></returns>
+    public static async Task<string> SendMasterMessageAsync(this MessageChain chain)
+    {
+        return await MessageManager.SendFriendMessageAsync(ThabeBot.Config.BOT_MASTER, chain);
     }
 
 

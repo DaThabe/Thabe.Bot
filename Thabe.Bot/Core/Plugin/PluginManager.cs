@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.Loader;
 using Thabe.Bot.Core.Logger;
 using Thabe.Bot.Core.Plugin.Receiver;
 using Thabe.Bot.Util;
@@ -40,13 +41,15 @@ public static class PluginManager
 
 
     /// <summary>
-    /// 重新加载所有插件
+    /// 从指定程序集中获取接收器
     /// </summary>
-    public static int ReloadAllReceiver()
+    /// <param name="loader"></param>
+    /// <returns></returns>
+    public static int LoadAllReceiver(Assembly assembly)
     {
         lock (_RELOAD_LOCK)
         {
-            var types = from type in CSahrpUtil.GetAllTypes()
+            var types = from type in assembly.GetTypes()
                         where type.GetCustomAttribute<PluginAttribute>() != null
                         select type;
 
@@ -60,6 +63,22 @@ public static class PluginManager
         }
     }
 
+    /// <summary>
+    /// 从指定类型所在的程序集加载所有类型
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static int LoadAllReceiver<T>()
+    {
+        lock (_RELOAD_LOCK)
+        {
+            var assembly = Assembly.GetAssembly(typeof(T));
+
+            if (assembly == null) return 0;
+
+            return LoadAllReceiver(assembly);
+        }
+    }
 
     /// <summary>
     /// 注册插件句柄

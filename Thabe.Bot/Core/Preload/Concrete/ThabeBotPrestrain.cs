@@ -24,8 +24,6 @@ file class PluginReceiverLoad : IPreload
 
     public void Init(ThabeBot bot, IPreload.Logger logger)
     {
-        PluginManager.ReloadAllReceiver();
-
         foreach(var i in PluginManager.Plugins)
         {
             $"已加载插件: {i.PluginMeta.Name}".LogImportant();

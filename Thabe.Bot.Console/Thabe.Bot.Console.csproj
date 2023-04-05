@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Thabe.Bot.Cloud\Thabe.Bot.Cloud.csproj" />
+    <ProjectReference Include="..\Thabe.Bot.Plugin\Thabe.Bot.Plugin.csproj" />
     <ProjectReference Include="..\Thabe.Bot\Thabe.Bot.csproj" />
   </ItemGroup>
 

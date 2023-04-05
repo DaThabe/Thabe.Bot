@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Thabe.Bot.Cloud", "Thabe.Bo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Thabe.Bot.Console", "Thabe.Bot.Console\Thabe.Bot.Console.csproj", "{B8EBD931-8E74-4157-B406-36C98E5702B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thabe.Bot.Plugin", "Thabe.Bot.Plugin\Thabe.Bot.Plugin.csproj", "{5B52BA41-F388-4E6D-8079-83684BF06B26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B8EBD931-8E74-4157-B406-36C98E5702B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8EBD931-8E74-4157-B406-36C98E5702B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8EBD931-8E74-4157-B406-36C98E5702B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B52BA41-F388-4E6D-8079-83684BF06B26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B52BA41-F388-4E6D-8079-83684BF06B26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B52BA41-F388-4E6D-8079-83684BF06B26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B52BA41-F388-4E6D-8079-83684BF06B26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

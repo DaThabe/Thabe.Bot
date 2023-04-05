@@ -1,6 +1,7 @@
-﻿namespace Thabe.Bot.Cloud.Plugin.thabe.bot.plugin;
+﻿namespace Thabe.Bot.Plugin;
 
-internal static class Package
+
+public class Package
 {
     /// <summary>
     /// 包名

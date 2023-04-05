@@ -6,11 +6,11 @@ using Thabe.Bot.Core.Plugin.Receiver;
 using Thabe.Bot.Core.Plugin.Receiver.Interceptor;
 using Thabe.Bot.Util;
 
-namespace Thabe.Bot.Cloud.Plugin.thabe.bot.plugin.Terminal;
+namespace Thabe.Bot.Plugin.Terminal;
 
 
 [Plugin(Package.Name, "终端插件")]
-public class Plugin
+public class TerminalPlugin
 {
     [Receiver(Describe = "插件主方法")]
     public static async void Main(FriendMessageReceiver receiver)

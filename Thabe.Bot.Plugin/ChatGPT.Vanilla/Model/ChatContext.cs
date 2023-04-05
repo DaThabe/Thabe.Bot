@@ -8,7 +8,7 @@ using Thabe.Bot.Util;
 using Thabe.Kit.EasyChatGPT;
 using static System.Formats.Asn1.AsnWriter;
 
-namespace Thabe.Bot.Cloud.Plugin.thabe.bot.plugin.NyaChat.Vanilla.Model;
+namespace Thabe.Bot.Plugin.ChatGPT.Vanilla.Model;
 
 
 /// <summary>
@@ -19,7 +19,7 @@ public class ChatContext : IDisposable
     /// <summary>
     /// Gitee云配置
     /// </summary>
-    private static readonly WebJsonConfig _CONFIG 
+    private static readonly WebJsonConfig _CONFIG
         = ConfigManager.GetGiteeCloudConfig("Config/chatgpt_neko_info.json");
 
 
@@ -61,7 +61,7 @@ public class ChatContext : IDisposable
     /// <summary>
     /// 超时时间
     /// </summary>
-    public TimeSpan Timeout { get; set; }  = TimeSpan.FromSeconds(10);
+    public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(10);
 
     /// <summary>
     /// 是否超时
@@ -192,12 +192,12 @@ public class ChatContext : IDisposable
     {
         if (receiver is GroupMessageReceiver)
         {
-            if(receiver.MessageChain is [_, AtMessage at, PlainMessage plain]
+            if (receiver.MessageChain is [_, AtMessage at, PlainMessage plain]
                 && at.Target == ThabeBot.Instance?.Core.QQ)
             {
                 return plain.Text.Trim();
             }
-            else if(receiver.MessageChain is [_, PlainMessage plain1]
+            else if (receiver.MessageChain is [_, PlainMessage plain1]
                 && plain1.Text.Trim().StartsWith("香草"))
             {
                 return plain1.Text.Trim();
@@ -205,7 +205,7 @@ public class ChatContext : IDisposable
             return null;
         }
 
-        if(receiver is FriendMessageReceiver)
+        if (receiver is FriendMessageReceiver)
         {
             if (receiver.MessageChain is [_, PlainMessage plain1])
             {

@@ -9,13 +9,13 @@ using Thabe.Bot.Core.Plugin.Receiver;
 using Thabe.Bot.Core.Plugin.Receiver.Dispatch.Context;
 using Thabe.Bot.Util;
 
-namespace Thabe.Bot.Cloud.Plugin.thabe.bot.plugin.SayPlugin;
+namespace Thabe.Bot.Plugin.Say;
 
 
 [Plugin(Package.Name, "Say")]
-public class Plugin
+public class SayPlugin
 {
-    private static readonly LocalDataTable<string> SAY_CONTENT = PluginManager.GetPluginHandel<Plugin>()
+    private static readonly LocalDataTable<string> SAY_CONTENT = PluginManager.GetPluginHandel<SayPlugin>()
        ?.ResisterDataTable<string>(nameof(SAY_CONTENT)) ?? throw new ArgumentNullException(nameof(SAY_CONTENT), "数据表初始化失败");
 
 

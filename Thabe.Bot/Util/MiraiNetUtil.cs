@@ -1,7 +1,9 @@
 ﻿using Mirai.Net.Data.Messages;
+using Mirai.Net.Data.Messages.Concretes;
 using Mirai.Net.Data.Messages.Receivers;
 using Mirai.Net.Sessions.Http.Managers;
 using Mirai.Net.Utils.Scaffolds;
+using Thabe.Bot.Core.Database.FileHelper;
 using Thabe.Bot.Core.Logger;
 
 namespace Thabe.Bot.Util;
@@ -143,6 +145,20 @@ public static class MiraiNetUtil
 
         await receiver.ReplyAsync(chain.Build(), replyMode, recallTime);
     }
+
+
+    /// <summary>
+    /// 回复一个网络图片消息
+    /// </summary>
+    /// <param name="receiver"></param>
+    /// <param name="url"></param>
+    /// <returns></returns>
+    public static async Task ReplyWebImageAsync(this MessageReceiverBase receiver, string url)
+    {
+        var b64 = await url.CacheWebFileToBase64();
+        await receiver.ReplyAsync(new ImageMessage() { Base64 = b64 });
+    }
+
 
     /// <summary>
     /// 获取发送者Id  群聊的自己和私聊的自己一样

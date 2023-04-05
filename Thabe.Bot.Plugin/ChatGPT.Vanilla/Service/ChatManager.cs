@@ -1,12 +1,12 @@
 ﻿using Mirai.Net.Data.Messages;
-using Thabe.Bot.Cloud.Plugin.thabe.bot.plugin.NyaChat.Vanilla.Model;
 using Thabe.Bot.Core.Bot;
 using Thabe.Bot.Core.Logger;
 using Thabe.Bot.Core.Preload;
+using Thabe.Bot.Plugin.ChatGPT.Vanilla.Model;
 using Thabe.Bot.Util;
 using Thabe.Kit.EasyChatGPT;
 
-namespace Thabe.Bot.Cloud.Plugin.thabe.bot.plugin.NyaChat.Vanilla.Service;
+namespace Thabe.Bot.Plugin.ChatGPT.Vanilla.Service;
 
 
 /// <summary>
@@ -92,9 +92,9 @@ public static class Chatmanager
 }
 
 
-file class ChatGPTClinetPreload : IPreload
-{
-    public string Describe => "Chat GPT 客户端预创建";
+//file class ChatGPTClinetPreload : IPreload
+//{
+//    public string Describe => "Chat GPT 客户端预创建";
 
-    public void Init(ThabeBot bot, IPreload.Logger sb) => Chatmanager.SendMasterMessage();
-}
+//    public void Init(ThabeBot bot, IPreload.Logger sb) => Chatmanager.SendMasterMessage();
+//}

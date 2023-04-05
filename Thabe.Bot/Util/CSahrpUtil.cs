@@ -3,6 +3,8 @@ using System.Reflection;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis;
 using Thabe.Bot.Core.Plugin.Script;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Thabe.Bot.Util;
 
@@ -15,20 +17,21 @@ public static class CSahrpUtil
     #region --反射类扩展--
 
     /// <summary>
-    /// 获取所有已加载的程序集
-    /// </summary>
-    /// <returns></returns>
-    public static IEnumerable<Assembly> GetAssemblys()
-    {
-        return AssemblyLoadContext.Default.Assemblies;
-    }
-
-    /// <summary>
-    /// 获取已加载程序集的所有类型
+    /// 获取Thabe.Bot引用程序集中的所有类型
     /// </summary>
     public static IEnumerable<Type> GetAllTypes()
     {
-        return from assembly in GetAssemblys()
+        return from assembly in AssemblyLoadContext.Default.Assemblies
+               from type in assembly.GetTypes()
+               select type;
+    }
+
+    /// <summary>
+    /// 从程序集加载上下文中获取所有类型
+    /// </summary>
+    public static IEnumerable<Type> GetAllTypes(this AssemblyLoadContext loader)
+    {
+        return from assembly in loader.Assemblies
                from type in assembly.GetTypes()
                select type;
     }
@@ -184,6 +187,24 @@ public static class CSahrpUtil
         return str;
     }
 
+
+    /// <summary>
+    /// 吧字符串转为MD5
+    /// </summary>
+    /// <param name="format">"x2"结果为32位,"x3"结果为48位,"x4"结果为64位</param>
+    public static string ToMD5(this string str, string format = "x2")
+    {
+        byte[] data = MD5.HashData(Encoding.UTF8.GetBytes(str));
+
+        StringBuilder sb = new();
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            sb.Append(data[i].ToString(format));
+        }
+
+        return sb.ToString();
+    }
 
     #endregion
 }
